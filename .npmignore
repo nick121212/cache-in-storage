@@ -12,3 +12,4 @@ tests
 .travis.yml
 karma.conf.json
 package-lock.json
+.nyc_output
