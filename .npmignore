@@ -13,3 +13,4 @@ tests
 karma.conf.json
 package-lock.json
 .nyc_output
+mocha.opts
