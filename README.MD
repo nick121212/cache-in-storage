@@ -1,7 +1,7 @@
 # 前端Cache工具
 
-![](https://coveralls.io/repos/github/nick121212/cache-in-storage/badge.svg?branch=master)
-![](https://travis-ci.org/nick121212/cache-in-storage.svg?branch=master)
+![coveralls](https://coveralls.io/repos/github/nick121212/cache-in-storage/badge.svg?branch=master)
+![travis](https://travis-ci.org/nick121212/cache-in-storage.svg?branch=master)
 
 前端经常碰到需要缓存一些方法的情况（比如接口，wx.login等），有些情况下，数据还需要落地（localStorage，wx的本地缓存等）。
 
