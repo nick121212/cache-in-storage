@@ -27,7 +27,7 @@ const getTimeSpan = async (isError = false) => {
   });
 };
 
-const getTimeSpanWithCache = cacheDec(getTimeSpan, "keyInCache", localStorage, { cache:true, local: true});
+const getTimeSpanWithCache = cacheDec(getTimeSpan, "keyInCache", localStorage, { cache:true });
 
 // 此时执行方法返回的值都是相同的
 getTimeSpanWithCache().then(console.log);
