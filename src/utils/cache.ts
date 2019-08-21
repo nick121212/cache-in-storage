@@ -1,6 +1,6 @@
-import {promiseFactory} from "./pFactory";
+import {promiseFactory} from "./pfactory";
 import {removeCacheFromKey} from "./remove";
-import {getDataFromStorage} from "./getData";
+import {getDataFromStorage} from "./getdata";
 import {CacheOptionModel} from "../models/cache.option";
 import {CacheNStorage} from "../models/cache.storage";
 

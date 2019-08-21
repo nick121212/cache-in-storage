@@ -1,4 +1,4 @@
-import {getDataFromStorage} from "./getData";
+import {getDataFromStorage} from "./getdata";
 import {CacheDataModel} from "../models/cache.data";
 
 /**
