@@ -1,0 +1,22 @@
+language: node_js
+node_js:
+  - "7"
+  - "8"
+  - "9"
+  - "10"
+branches:
+  only:
+    - master
+install:
+  - npm install
+script:
+  - npm test
+after_success:
+  - npm run coveralls
+
+notifications:
+  email:
+    recipients:
+      - nick121212@126.com
+    on_success: change
+    on_failure: always.

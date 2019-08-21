@@ -1,0 +1,14 @@
+node_modules
+coverage
+.vscode
+.DS_Store
+.idea/*
+tsconfig.json
+.gitngnore
+.npmignore
+webpack
+tests
+.babelrc
+.travis.yml
+karma.conf.json
+package-lock.json

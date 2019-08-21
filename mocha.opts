@@ -1,0 +1,5 @@
+./tests/**/*.spec.js
+--require @babel/register
+--recursive
+--reporter mochawesome
+--bail

@@ -1,0 +1,32 @@
+{
+    "env": {
+        "production": {
+            "presets": [
+                [
+                    "@babel/preset-env",
+                    {
+                        "targets": {},
+                        "modules": false,
+                        "loose": true
+                    }
+                ]
+            ],
+            "plugins": [
+                "@babel/plugin-transform-runtime"
+            ],
+            "minified": false
+        },
+        "development": {
+            "presets": [
+                "@babel/preset-env"
+            ],
+            "plugins": [
+                "@babel/plugin-transform-runtime"
+            ],
+        },
+        "test": {
+            
+        }
+    },
+    "comments": true
+}
