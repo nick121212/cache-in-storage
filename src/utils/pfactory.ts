@@ -1,3 +1,3 @@
-import {BaseFactory} from "./factory";
+import { BaseFactory } from "./factory";
 
 export const promiseFactory = new BaseFactory();

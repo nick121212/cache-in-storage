@@ -24,8 +24,6 @@ export const getDataFromStorage = (key: string, storage?: Storage): CacheDataMod
 
 	const {expire = 0, cacheIn = 0, data = null} = dataFromStorage || {};
 
-	// console.log(expire, cacheIn, data, Date.now())
-
 	if (expire && cacheIn && cacheIn + expire < Date.now()) {
 		storage.removeItem(key);
 
