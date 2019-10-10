@@ -6,7 +6,7 @@ import {CacheDataModel} from "../models/cache.data";
  * @param {String}  key     Key值
  * @returns {null|}
  */
-export const getDataFromStorage = (key: string, storage: Storage): CacheDataModel | null => {
+export const getDataFromStorage = (key: string, storage?: Storage): CacheDataModel | null => {
 	if (!storage) {
 		return null;
 	}

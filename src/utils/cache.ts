@@ -18,7 +18,7 @@ import {CacheNStorage} from "../models/cache.storage";
  *  cachePromise().then(console.log).cache(console.error)
  * @returns {Promise<any>}
  */
-export const cacheDec = (func: (...args: any[]) => Promise<any>, key: string, storage: CacheNStorage, settings: CacheOptionModel): (...args: any[]) => Promise<any> => {
+export const cacheDec = (func: (...args: any[]) => Promise<any>, key: string, storage: CacheNStorage | undefined, settings: CacheOptionModel): (...args: any[]) => Promise<any> => {
 	const {cache = false, reload = false, expire = 0} = settings || {};
 
 	function CacheFunc(...args: any[]) {

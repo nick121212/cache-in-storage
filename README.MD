@@ -138,6 +138,12 @@ interface Storage {
 | reload | boolean | 重刷缓存开关    |
 | expire | boolean | 过期时间（单位毫秒）    |
 
+## changelog
+
+### V1.0.1
+
+1. 默认导出了内存factory
+
 ## LICENSE
 
 [MIT](./LICENSE.md)

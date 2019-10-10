@@ -1,6 +1,6 @@
 {
     "name": "cache-in-storage",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "前端缓存工具",
     "main": "dist/index.min.js",
     "typings": "dist/index.d.ts",
