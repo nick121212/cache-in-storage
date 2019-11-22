@@ -27,7 +27,8 @@ const getTimeSpan = async (isError = false) => {
   });
 };
 
-const getTimeSpanWithCache = cacheDec(getTimeSpan, "keyInCache", localStorage, { cache:true });
+// 对getTimeSpan进行缓存，并把缓存结果放入localStorage
+const getTimeSpanWithCache = cacheDec(getTimeSpan, "keyInCache", { cache:true }, localStorage);
 
 // 此时执行方法返回的值都是相同的
 getTimeSpanWithCache().then(console.log);
@@ -37,7 +38,7 @@ getTimeSpanWithCache(true).catch(console.error);
 
 ## API
 
-> cacheDec: ```(func: (...args: any[]) => Promise<any>, key: string, storage: CacheNStorage, settings: CacheOptionModel): (...args: any[]) => Promise<any>```
+> cacheDec: ```(func: (...args: any[]) => Promise<any>, key: string, settings: CacheOptionModel, storage?: CacheNStorage, promiseStorage?: CacheNStorage): (...args: any[]) => Promise<any>```
 
 一个高阶函数，包装一个Promise方法，返回一个方法((...args)=>Promise);
 
@@ -128,6 +129,10 @@ interface Storage {
 }
 ```
 
+> LruFactory
+
+继承自BaseStorage接口，提供了操作缓存的方法并支持lru缓存算法。此类的数据缓存在内存中。
+
 ## 类型说明
 
 > CacheOptionModel
@@ -139,6 +144,10 @@ interface Storage {
 | expire | boolean | 过期时间（单位毫秒）    |
 
 ## changelog
+
+### V2.0.0
+
+1. 修改了promise缓存的机制，添加了缓存lru算法
 
 ### V1.0.1
 

@@ -1,5 +1,5 @@
-import {getDataFromStorage} from "./getdata";
-import {CacheDataModel} from "../models/cache.data";
+import { CacheDataModel } from "../models/cache.data";
+import { getDataFromStorage } from "./getdata";
 
 /**
  * 从缓存中获取cacheIn字段
@@ -7,11 +7,11 @@ import {CacheDataModel} from "../models/cache.data";
  * @param {Storage}   storage     缓存的Storage
  */
 export const getCacheInWithKey = (key: string, storage?: Storage): number => {
-	const dataInCache: CacheDataModel | null = storage ? getDataFromStorage(key, storage) : null;
+    const dataInCache: CacheDataModel | null = storage ? getDataFromStorage(key, storage) : null;
 
-	if (!dataInCache) {
-		return 0;
-	}
+    if (!dataInCache) {
+        return 0;
+    }
 
-	return dataInCache.cacheIn;
+    return dataInCache.cacheIn;
 };

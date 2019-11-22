@@ -1,8 +1,7 @@
 {
     "defaultSeverity": "error",
     "extends": [
-        "tslint:recommended",
-        "google"
+        "tslint:recommended"
     ],
     "jsRules": {},
     "rules": {},

@@ -1,6 +1,6 @@
 {
     "name": "cache-in-storage",
-    "version": "1.0.1",
+    "version": "2.0.0",
     "description": "前端缓存工具",
     "main": "dist/index.min.js",
     "typings": "dist/index.d.ts",
@@ -11,6 +11,7 @@
         "libs": "tsc -d --outDir libs",
         "build": "npm run clear;npm run prod;npm run libs",
         "test": "mocha ./tests/**/*.spec.js --require @babel/register",
+        "test1": "mocha ./tests/**/lrufactory.spec.js --require @babel/register",
         "karma": "karma start karma.conf.js",
         "cover": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha ./tests/**/*.spec.js -- --require @babel/register",
         "coveralls": "npm run cover; cat ./coverage/lcov.info | coveralls"
