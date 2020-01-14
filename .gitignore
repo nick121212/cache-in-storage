@@ -1,6 +1,7 @@
 node_modules
 dist
 libs
+es6
 coverage
 .vscode
 .DS_Store
