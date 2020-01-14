@@ -5,7 +5,7 @@
     "main": "dist/index.min.js",
     "typings": "dist/index.d.ts",
     "types": "dist/index.d.ts",
-    "sideEffects": true,
+    "sideEffects": false,
     "scripts": {
         "clear": "rm -rf dist;rm -rf es6;rm -rf coverage;",
         "prod": "NODE_ENV=production webpack --config=webpack/webpack.prod.config.js",
