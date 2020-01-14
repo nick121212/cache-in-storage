@@ -1,7 +1,7 @@
 import chai from "chai";
 import chaiAsPromised from "chai-as-promised";
 
-import { cacheDec, BaseFactory, getDataFromStorage } from "../../libs/index";
+import { cacheDec, BaseFactory, getDataFromStorage } from "../../es6/index";
 import { getTimeSpan } from "../func";
 
 chai.should();

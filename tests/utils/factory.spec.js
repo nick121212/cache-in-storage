@@ -1,6 +1,6 @@
 import { assert, expect } from "chai";
 
-import { BaseFactory } from "../../libs/index";
+import { BaseFactory } from "../../es6/index";
 
 describe("测试Factory类", () => {
   let factory = new BaseFactory();

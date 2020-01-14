@@ -1,6 +1,6 @@
 import { assert, expect } from "chai";
 
-import { LRUFactory } from "../../libs/utils/lrufactory";
+import { LRUFactory } from "../../es6/utils/lrufactory";
 
 describe("lrufactory.js文件", () => {
     let storage;

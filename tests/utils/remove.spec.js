@@ -1,6 +1,6 @@
 import { assert, expect } from "chai";
 
-import { removeCacheFromKey, removeCacheFromRegexp, getCacheInWithKey, BaseFactory } from "../../libs/index";
+import { removeCacheFromKey, removeCacheFromRegexp, getCacheInWithKey, BaseFactory } from "../../es6/index";
 
 describe("测试remove.js文件", () => {
   it("removeCacheFromKey方法", () => {

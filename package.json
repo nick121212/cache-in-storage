@@ -5,10 +5,11 @@
     "main": "dist/index.min.js",
     "typings": "dist/index.d.ts",
     "types": "dist/index.d.ts",
+    "sideEffects": true,
     "scripts": {
-        "clear": "rm -rf dist;rm -rf libs;rm -rf coverage;",
+        "clear": "rm -rf dist;rm -rf es6;rm -rf coverage;",
         "prod": "NODE_ENV=production webpack --config=webpack/webpack.prod.config.js",
-        "libs": "tsc -d --outDir libs",
+        "libs": "tsc -d --outDir es6",
         "build": "npm run clear;npm run prod;npm run libs",
         "test": "mocha ./tests/**/*.spec.js --require @babel/register",
         "test1": "mocha ./tests/**/lrufactory.spec.js --require @babel/register",

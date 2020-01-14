@@ -1,6 +1,6 @@
 import { assert, expect } from "chai";
 
-import { getDataFromStorage, BaseFactory } from "../../libs/index";
+import { getDataFromStorage, BaseFactory } from "../../es6/index";
 
 describe("测试getData.js文件", () => {
   it("getDataFromStorage", () => {

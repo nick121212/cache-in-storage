@@ -1,6 +1,6 @@
 import { assert, expect } from "chai";
 
-import { LinkedNode } from "../../libs/utils/node";
+import { LinkedNode } from "../../es6/utils/node";
 
 describe("node.js文件", () => {
     it("构造函数", () => {

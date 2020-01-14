@@ -1,6 +1,6 @@
 import { assert, expect } from "chai";
 
-import { LinkedList } from "../../libs/utils/linkedlist";
+import { LinkedList } from "../../es6/utils/linkedlist";
 
 describe("linkedlist.js文件", () => {
     let list = null;

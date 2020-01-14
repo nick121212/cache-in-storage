@@ -1,6 +1,6 @@
 import { assert, expect } from "chai";
 
-import { getCacheInWithKey, BaseFactory } from "../../libs/index";
+import { getCacheInWithKey, BaseFactory } from "../../es6/index";
 
 describe("测试getCacheInWithKey方法", () => {
   it("Factory类是一个对象, 拥有getItem,setItem,forEach，clear方法", () => {
