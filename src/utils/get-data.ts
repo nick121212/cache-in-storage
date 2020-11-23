@@ -1,3 +1,4 @@
+import Keyv, { Store } from "keyv";
 import { CacheDataModel } from "../models/cache.data";
 
 /**
@@ -6,18 +7,18 @@ import { CacheDataModel } from "../models/cache.data";
  * @param {String}  key     Key值
  * @returns {null|}
  */
-export const getDataFromStorage = (key: string, storage?: Storage): CacheDataModel | null => {
-    if (!storage) {
+export const getDataFromStorage = async (key: string, cache?: Keyv | Store<any>): Promise<CacheDataModel | null> => {
+    if (!cache) {
         return null;
     }
 
-    let dataFromStorage: any = storage.getItem(key);
+    let dataFromStorage: any = await cache.get(key);
 
     if (typeof dataFromStorage === "string") {
         try {
             dataFromStorage = JSON.parse(dataFromStorage);
         } catch (e) {
-            storage.removeItem(key);
+            cache.delete(key);
             return null;
         }
     }
@@ -25,7 +26,7 @@ export const getDataFromStorage = (key: string, storage?: Storage): CacheDataMod
     const { expire = 0, cacheIn = 0, data = null } = dataFromStorage || {};
 
     if (expire && cacheIn && cacheIn + expire < Date.now()) {
-        storage.removeItem(key);
+        cache.delete(key);
 
         return null;
     }

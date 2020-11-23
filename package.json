@@ -1,6 +1,6 @@
 {
     "name": "cache-in-storage",
-    "version": "2.0.1",
+    "version": "3.0.0",
     "description": "前端缓存工具",
     "main": "dist/index.min.js",
     "typings": "dist/index.d.ts",
@@ -12,7 +12,6 @@
         "libs": "tsc -d --outDir es6",
         "build": "npm run clear;npm run prod;npm run libs",
         "test": "mocha ./tests/**/*.spec.js --require @babel/register",
-        "test1": "mocha ./tests/**/lrufactory.spec.js --require @babel/register",
         "karma": "karma start karma.conf.js",
         "cover": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha ./tests/**/*.spec.js -- --require @babel/register",
         "coveralls": "npm run cover; cat ./coverage/lcov.info | coveralls"
@@ -69,5 +68,10 @@
         "uglifyjs-webpack-plugin": "^2.1.2",
         "webpack": "^4.30.0",
         "webpack-cli": "^3.3.7"
+    },
+    "dependencies": {
+        "@types/keyv": "^3.1.1",
+        "keyv": "^4.0.3",
+        "quick-lru": "^5.1.1"
     }
 }

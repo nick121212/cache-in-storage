@@ -1,7 +1,7 @@
+import Keyv, { Store } from "keyv";
 import { CacheOptionModel } from "../models/cache.option";
-import { CacheNStorage } from "../models/cache.storage";
-import { getDataFromStorage } from "./getdata";
-import { promiseFactory } from "./pfactory";
+import { getDataFromStorage } from "./get-data";
+import promiseCache from "../cache/promise-cache";
 import { removeCacheFromKey } from "./remove";
 
 /**
@@ -23,15 +23,15 @@ export const cacheDec = (
     func: (...args: any[]) => Promise<any>,
     key: string,
     settings: CacheOptionModel,
-    storage?: CacheNStorage,
-    promiseStorage: CacheNStorage = promiseFactory
+    storage?: Keyv,
+    pCache: Store<any> = promiseCache
 ): ((...args: any[]) => Promise<any>) => {
     const { cache = false, reload = false, expire = 0 } = settings || {};
 
-    function CacheFunc(...args: any[]) {
+    async function CacheFunc(...args: any[]) {
         // 删除缓存
         if (reload || !cache) {
-            removeCacheFromKey(key, promiseStorage);
+            removeCacheFromKey(key, pCache);
             removeCacheFromKey(key, storage);
         }
 
@@ -41,9 +41,9 @@ export const cacheDec = (
         }
 
         // 先从内存中获取数据，在从local中获取，如果没有再从内存中获取
-        let dataInCache = getDataFromStorage(key, promiseStorage);
+        let dataInCache = await getDataFromStorage(key, pCache);
         if (!dataInCache) {
-            dataInCache = getDataFromStorage(key, storage);
+            dataInCache = await getDataFromStorage(key, storage);
         }
 
         // 命中缓存
@@ -55,17 +55,15 @@ export const cacheDec = (
         const promise = func.call(this, ...args);
 
         // 添加缓存, 为了并发多次请求的情况下，故添加内存的promise缓存
-        promiseStorage.setItem(key, { data: promise, expire, cacheIn: Date.now() } as any);
+        await pCache.set(key, { data: promise, expire, cacheIn: Date.now() });
 
         promise
             .then((d) => {
-                if (storage) {
-                    storage.setItem(key, JSON.stringify({ data: d, expire, cacheIn: Date.now() }));
-                }
+                storage?.set(key, { data: d, expire, cacheIn: Date.now() });
             })
-            .catch((e) => {
-                removeCacheFromKey(key, promiseStorage);
-                removeCacheFromKey(key, storage);
+            .catch(async (e) => {
+                await removeCacheFromKey(key, pCache);
+                await removeCacheFromKey(key, storage);
 
                 throw e;
             });

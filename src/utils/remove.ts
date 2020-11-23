@@ -1,4 +1,4 @@
-import { CacheNStorage } from "../models/cache.storage";
+import Keyv, { Store } from "keyv";
 
 /**
  * 根据Key清除缓存
@@ -6,28 +6,8 @@ import { CacheNStorage } from "../models/cache.storage";
  * @param   {Storage} storage  缓存类
  * @returns {void}
  */
-export const removeCacheFromKey = (key: string, storage?: CacheNStorage): void => {
+export const removeCacheFromKey = (key: string, storage?: Keyv | Store<any>): void => {
     if (storage) {
-        storage.removeItem(key);
+        storage.delete(key);
     }
-};
-/**
- * 根据正则来删除缓存
- * @param   {RegExp}  regexp   正则表达式
- * @param   {Storage} storage  缓存类
- * @returns {void}
- */
-export const removeCacheFromRegexp = (regexp: RegExp, storage?: CacheNStorage): void => {
-    if (!storage) {
-        return;
-    }
-    storage.forEach((key: string) => {
-        regexp.lastIndex = 0;
-
-        if (!regexp.test(key)) {
-            return;
-        }
-
-        storage.removeItem(key);
-    });
 };
