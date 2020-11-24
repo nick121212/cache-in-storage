@@ -55,7 +55,7 @@ export const cacheDec = (
         const promise = func.call(this, ...args);
 
         // 添加缓存, 为了并发多次请求的情况下，故添加内存的promise缓存
-        await pCache.set(key, { data: promise, expire, cacheIn: Date.now() });
+        pCache.set(key, { data: promise, expire, cacheIn: Date.now() });
 
         promise
             .then((d) => {

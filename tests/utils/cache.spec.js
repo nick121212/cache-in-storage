@@ -2,7 +2,7 @@ import chai from "chai";
 import chaiAsPromised from "chai-as-promised";
 import Keyv from "keyv";
 
-import { cacheDec, BaseFactory, getDataFromStorage } from "../../es6/index";
+import { cacheDec, BaseFactory, getDataFromStorage } from "../../esm/index";
 import { getTimeSpan } from "../func";
 
 chai.should();

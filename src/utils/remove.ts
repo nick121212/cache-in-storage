@@ -6,8 +6,6 @@ import Keyv, { Store } from "keyv";
  * @param   {Storage} storage  缓存类
  * @returns {void}
  */
-export const removeCacheFromKey = (key: string, storage?: Keyv | Store<any>): void => {
-    if (storage) {
-        storage.delete(key);
-    }
+export const removeCacheFromKey = (key: string, storage?: Keyv | Store<any>): Promise<boolean> | undefined | boolean => {
+    return storage?.delete(key);
 };
