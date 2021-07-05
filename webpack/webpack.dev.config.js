@@ -26,6 +26,6 @@ module.exports = {
         filename:  "index.dev.js",
         libraryTarget: "commonjs2",
         sourceMapFilename: "index.dev.js.map",
-        library: "JSFCORE",
+        library: "CIS",
     }
 };

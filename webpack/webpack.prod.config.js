@@ -19,12 +19,13 @@ module.exports = {
             "NODE_ENV": JSON.stringify(env),
         }
     })],
-    mode:"production",
+    mode: "production",
     output: {
         path: path.resolve("./dist"),
-        filename:  "index.min.js",
+        filename: "index.min.js",
         libraryTarget: "umd",
-        sourceMapFilename:  "index.min.js.map",
-        library: "CC",
+        sourceMapFilename: "index.min.js.map",
+        library: "CIS",
+        umdNamedDefine: true
     }
 };
