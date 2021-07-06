@@ -7,8 +7,8 @@ import { removeCacheFromKey } from "./remove";
 /**
  * 对方法做缓存，方法必须返回Promise
  * 返回 {() => Promise<any>}
- * @param {Promise<any>}         func                          需要被高阶的函数
  * @param {String}               key                           缓存的唯一key
+ * @param {Promise<any>}         func                          需要被高阶的函数
  * @param {CacheOptionModel}     settings                      缓存设置
  * @param {CacheNStorage}        storage                       缓存类
  * @param {CacheNStorage}        promiseStorage                promise缓存类
