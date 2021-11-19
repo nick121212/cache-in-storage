@@ -1,6 +1,6 @@
 {
     "name": "cache-in-storage",
-    "version": "3.0.4",
+    "version": "3.0.5",
     "description": "前端缓存工具",
     "main": "dist/index.min.js",
     "module": "esm/index.js",
