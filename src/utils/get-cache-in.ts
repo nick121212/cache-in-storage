@@ -1,4 +1,4 @@
-import Keyv from "keyv";
+import { Store } from "keyv";
 import { CacheDataModel } from "../models/cache.data";
 import { getDataFromStorage } from "./get-data";
 
@@ -7,7 +7,7 @@ import { getDataFromStorage } from "./get-data";
  * @param {String}    key         缓存的key
  * @param {Storage}   storage     缓存的Storage
  */
-export const getCacheInWithKey = async (key: string, cache?: Keyv): Promise<number> => {
+export const getCacheInWithKey = async (key: string, cache?: Store<any>): Promise<number> => {
     const dataInCache: CacheDataModel | null = cache ? await getDataFromStorage(key, cache) : null;
 
     if (!dataInCache) {

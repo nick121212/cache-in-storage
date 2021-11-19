@@ -1,20 +1,22 @@
 {
     "name": "cache-in-storage",
-    "version": "3.0.7",
+    "version": "3.1.0",
     "description": "前端缓存工具",
     "main": "dist/index.min.js",
     "module": "esm/index.js",
     "files": [
         "lib/*",
-        "esm/*"
+        "esm/*",
+        "types/*"
     ],
-    "typings": "dist/index.d.ts",
-    "types": "dist/index.d.ts",
+    "typings": "types/index.d.ts",
+    "types": "types/index.d.ts",
     "sideEffects": false,
     "scripts": {
         "clear": "rm -rf dist;rm -rf esm;rm -rf coverage;",
         "prod": "NODE_ENV=production webpack --config=webpack/webpack.prod.config.js",
         "build:es": "tsc -m esNext --outDir esm",
+        "types": "dtsmake -s  src/index.ts",
         "build": "npm run clear;npm run prod;npm run build:es",
         "test": "mocha ./tests/**/*.spec.js --require @babel/register",
         "karma": "karma start karma.conf.js",
@@ -53,6 +55,7 @@
         "chai": "^4.2.0",
         "chai-as-promised": "^7.1.1",
         "coveralls": "^3.0.6",
+        "dtsmake": "0.0.10",
         "istanbul": "^1.0.0-alpha.2",
         "istanbul-instrumenter-loader": "^3.0.1",
         "karma": "^4.1.0",
