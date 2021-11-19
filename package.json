@@ -8,8 +8,8 @@
         "/dist",
         "/esm"
     ],
-    "typings": "types/index.d.ts",
-    "types": "types/index.d.ts",
+    "typings": "dist/index.d.ts",
+    "types": "dist/index.d.ts",
     "sideEffects": false,
     "scripts": {
         "clear": "rm -rf dist;rm -rf esm;rm -rf coverage;",
