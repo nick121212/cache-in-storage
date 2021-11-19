@@ -1,12 +1,12 @@
 {
     "name": "cache-in-storage",
-    "version": "3.0.6",
+    "version": "3.0.7",
     "description": "前端缓存工具",
     "main": "dist/index.min.js",
     "module": "esm/index.js",
     "files": [
-        "lib/",
-        "esm/"
+        "lib/*",
+        "esm/*"
     ],
     "typings": "dist/index.d.ts",
     "types": "dist/index.d.ts",
