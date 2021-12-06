@@ -3,6 +3,7 @@ import { CacheOptionModel } from "../models/cache.option";
 import { getDataFromStorage } from "./get-data";
 import promiseCache from "../cache/promise-cache";
 import { removeCacheFromKey } from "./remove";
+import { CacheDataModel } from "../models/cache.data";
 
 /**
  * 对方法做缓存，方法必须返回Promise
@@ -23,19 +24,28 @@ export const cacheDec = (
     key: string,
     func: (...args: any[]) => Promise<any>,
     settings: CacheOptionModel,
-    storage?: Keyv,
+    storage?: Keyv | Store<any>,
     pCache: Store<any> = promiseCache
 ): ((...args: any[]) => Promise<any>) => {
     const { cache = false, reload = false, expire = 0 } = settings || {};
 
     const funcWithWrap = async (...args: any[]) => {
         const promise = func.call(this, ...args);
+        const dataInCache = getDataFromStorage(key, pCache);
 
-        // 添加缓存, 为了并发多次请求的情况下，故添加内存的promise缓存
-        pCache.set(key, { data: promise, expire, cacheIn: Date.now() });
+        if (!dataInCache) {
+            // 添加缓存, 为了并发多次请求的情况下，故添加内存的promise缓存
+            pCache.set(key, { data: promise, expire, cacheIn: Date.now() });
+        }
 
         await promise
             .then((d) => {
+                pCache.set(key, {
+                    data: promise,
+                    expire,
+                    cacheIn: Date.now(),
+                });
+
                 return storage?.set(key, {
                     data: d,
                     expire,
@@ -67,11 +77,14 @@ export const cacheDec = (
 
                 await removeCacheFromKey(key, storage);
 
-                return  await funcWithWrap(...args);
+                return await funcWithWrap(...args);
             };
         } else {
             cacheInPromise = async () => {
-                let dataInCache = await getDataFromStorage(key, pCache);
+                let dataInCache: CacheDataModel | null = getDataFromStorage(
+                    key,
+                    pCache
+                ) as CacheDataModel | null;
 
                 if (!dataInCache && storage) {
                     dataInCache = await getDataFromStorage(key, storage);
@@ -86,15 +99,7 @@ export const cacheDec = (
             };
         }
 
-        const promise = cacheInPromise();
-
-        pCache.set(key, {
-            data: promise,
-            expire,
-            cacheIn: Date.now(),
-        });
-
-        return promise;
+        return cacheInPromise();
     }
 
     return CacheFunc;
