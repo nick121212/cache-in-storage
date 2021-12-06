@@ -17,7 +17,7 @@
         "build:es": "tsc -m esNext --outDir esm",
         "types": "dtsmake -s  src/index.ts",
         "build": "npm run clear;npm run prod;npm run build:es",
-        "test": "mocha ./tests/**/*.spec.js --require @babel/register",
+        "test": "mocha ./tests/**/*.spec1.js --require @babel/register",
         "karma": "karma start karma.conf.js",
         "cover": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha ./tests/**/*.spec.js -- --require @babel/register",
         "coveralls": "npm run cover; cat ./coverage/lcov.info | coveralls"
