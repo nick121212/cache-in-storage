@@ -2,7 +2,7 @@ import chai from "chai";
 import chaiAsPromised from "chai-as-promised";
 import Keyv from "keyv";
 
-import { cacheDec, BaseFactory, getDataFromStorage } from "../../esm/index";
+import { cacheDec, BaseFactory, getDataFromStorage, getCacheInWithKey, promiseCache } from "../../esm/index";
 import { getTimeSpan, TestStorage } from "../func";
 
 chai.should();
@@ -23,7 +23,9 @@ describe("测试cache.js", () => {
 
     it("不是用缓存的方式{ cache: false }", async function () {
         this.timeout(5000);
-        const getTimeSpanWithCache = cacheDec("test1", getTimeSpan, { cache: false });
+        const getTimeSpanWithCache = cacheDec("test1", getTimeSpan, {
+            cache: false,
+        });
 
         const timespan = await getTimeSpanWithCache();
         const timespan1 = await getTimeSpanWithCache();
@@ -33,7 +35,9 @@ describe("测试cache.js", () => {
 
     it("使用缓存，设置参数为{ cache: true }", async function () {
         this.timeout(5000);
-        const getTimeSpanWithCache = cacheDec("test1", getTimeSpan, { cache: true });
+        const getTimeSpanWithCache = cacheDec("test1", getTimeSpan, {
+            cache: true,
+        });
 
         const timespan = await getTimeSpanWithCache();
         const timespan1 = await getTimeSpanWithCache();
@@ -41,12 +45,22 @@ describe("测试cache.js", () => {
         expect(timespan).to.equal(timespan1);
     });
 
+    const date = Date.now();
+
     it("使用缓存，设置参数为{ cache: true, expire: 10 }", async function () {
         this.timeout(5000);
-        const getTimeSpanWithCache = cacheDec("test2", getTimeSpan, { cache: true, expire: 10 });
-
+        const getTimeSpanWithCache = cacheDec("test23", getTimeSpan, {
+            cache: true,
+            expire: 100
+        });
         const timespan = await getTimeSpanWithCache();
-        await getTimeSpan();
+
+        await new Promise((resolve, _reject) => {
+            setTimeout(() => {
+                resolve();
+            }, 101);
+        });
+
         const timespan1 = await getTimeSpanWithCache();
 
         expect(timespan).to.not.equal(timespan1);
@@ -54,9 +68,16 @@ describe("测试cache.js", () => {
 
     it("使用缓存，设置参数为{ cache: true, expire: 10 }", async function () {
         this.timeout(5000);
-        const getTimeSpanWithCache = cacheDec("test3", getTimeSpan, { cache: true });
-        const getTimeSpanWithCache1 = cacheDec("test3", getTimeSpan, { cache: true });
-        const getTimeSpanWithCache2 = cacheDec("test3", getTimeSpan, { cache: true, reload: true });
+        const getTimeSpanWithCache = cacheDec("test3", getTimeSpan, {
+            cache: true,
+        });
+        const getTimeSpanWithCache1 = cacheDec("test3", getTimeSpan, {
+            cache: true,
+        });
+        const getTimeSpanWithCache2 = cacheDec("test3", getTimeSpan, {
+            cache: true,
+            reload: true,
+        });
 
         const timespan = await getTimeSpanWithCache();
         const timespan1 = await getTimeSpanWithCache1();
@@ -68,7 +89,9 @@ describe("测试cache.js", () => {
 
     it("使用缓存，方法执行返回错误，设置参数为{ cache: true }", async function () {
         this.timeout(5000);
-        const getTimeSpanWithCache = cacheDec("test4", getTimeSpan, { cache: true });
+        const getTimeSpanWithCache = cacheDec("test4", getTimeSpan, {
+            cache: true,
+        });
 
         return assert.isRejected(getTimeSpanWithCache(true), Error, "test");
     });
@@ -77,7 +100,12 @@ describe("测试cache.js", () => {
         this.timeout(5000);
 
         const localStorage = new Keyv();
-        const getTimeSpanWithCache = cacheDec("test5", getTimeSpan, { cache: true }, localStorage);
+        const getTimeSpanWithCache = cacheDec(
+            "test5",
+            getTimeSpan,
+            { cache: true },
+            localStorage
+        );
 
         const timespan1 = await getTimeSpanWithCache();
         const data = await getDataFromStorage("test5", localStorage);
@@ -88,11 +116,22 @@ describe("测试cache.js", () => {
 
     it("使用缓存，测试并发情况", async function () {
         this.timeout(5000);
-        const getTimeSpanWithCache = cacheDec("test6", getTimeSpan, { cache: true });
-        const getTimeSpanWithCache1 = cacheDec("test6", getTimeSpan, { cache: true });
-        const getTimeSpanWithCache2 = cacheDec("test6", getTimeSpan, { cache: true, reload: true });
+        const getTimeSpanWithCache = cacheDec("test6", getTimeSpan, {
+            cache: true,
+        });
+        const getTimeSpanWithCache1 = cacheDec("test6", getTimeSpan, {
+            cache: true,
+        });
+        const getTimeSpanWithCache2 = cacheDec("test6", getTimeSpan, {
+            cache: true,
+            reload: true,
+        });
 
-        const [timespan, timespan1, timespan2] = await Promise.all([getTimeSpanWithCache(), getTimeSpanWithCache1(), getTimeSpanWithCache2()]);
+        const [timespan, timespan1, timespan2] = await Promise.all([
+            getTimeSpanWithCache(),
+            getTimeSpanWithCache1(),
+            getTimeSpanWithCache2(),
+        ]);
 
         expect(timespan).to.equal(timespan1);
         expect(timespan).to.not.equal(timespan2);
@@ -100,11 +139,29 @@ describe("测试cache.js", () => {
 
     it("使用缓存，测试并发情况", async function () {
         this.timeout(5000);
-        const getTimeSpanWithCache = cacheDec("test6", getTimeSpan, { cache: true }, TestStorage);
-        const getTimeSpanWithCache1 = cacheDec("test6", getTimeSpan, { cache: true }, TestStorage);
-        const getTimeSpanWithCache2 = cacheDec("test6", getTimeSpan, { cache: true, reload: true }, TestStorage);
+        const getTimeSpanWithCache = cacheDec(
+            "test6",
+            getTimeSpan,
+            { cache: true },
+            TestStorage
+        );
+        const getTimeSpanWithCache1 = cacheDec(
+            "test6",
+            getTimeSpan,
+            { cache: true },
+            TestStorage
+        );
+        const getTimeSpanWithCache2 = cacheDec(
+            "test6",
+            getTimeSpan,
+            { cache: true, reload: true },
+            TestStorage
+        );
 
-        const [timespan, timespan1] = await Promise.all([getTimeSpanWithCache(), getTimeSpanWithCache1()]);
+        const [timespan, timespan1] = await Promise.all([
+            getTimeSpanWithCache(),
+            getTimeSpanWithCache1(),
+        ]);
         const timespan2 = await getTimeSpanWithCache2();
         const finData = await TestStorage.get("test6");
 
@@ -112,5 +169,4 @@ describe("测试cache.js", () => {
         expect(timespan).to.not.equal(timespan2);
         expect(timespan2).to.equal(finData.data);
     });
-
 });
