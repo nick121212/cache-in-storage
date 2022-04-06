@@ -8,8 +8,8 @@ import {
     getDataFromStorage,
     promiseCache,
     getCacheInWithKey,
-} from "../../esm/index";
-import { getTimeSpan, TestStorage } from "../func";
+} from "../esm/index";
+import { getTimeSpan, TestStorage } from "./func";
 
 chai.should();
 chai.use(chaiAsPromised);
